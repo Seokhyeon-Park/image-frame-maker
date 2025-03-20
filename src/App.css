@@ -10,6 +10,11 @@
   align-items: center;
 }
 
+.container {
+  height: 100%;
+  width: 100%;
+}
+
 .main-container {
   height: 90%;
   width: 90%;
