@@ -25,7 +25,7 @@ function App() {
 
         if (files && files.length > 0) {
           const formData = new FormData();
-          
+
           formData.append('size', size);
           for (let i = 0; i < files.length; i++) {
             formData.append('images', files[i]);
@@ -34,11 +34,20 @@ function App() {
           const response = await fetch(END_POINT, {
             method: 'POST',
             body: formData,
+            responseType: 'blob'
           });
 
           if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'images.zip');
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
             showSuccessAlert('🎉 파일 업로드 성공! 🥳');
-            console.log('파일 업로드 성공!');
           } else {
             showErrorAlert('🥲 파일 업로드에 실패했어요. 다시 시도해 주세요! 😥');
             console.error('파일 업로드 실패:', response.status);
