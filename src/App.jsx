@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { ScaleLoader } from 'react-spinners';
-import './App.css'
 import { ToastContainer, toast } from 'react-toastify';
+import './App.css'
 
 function App() {
   const END_POINT = 'https://seokbong.tplinkdns.com/api/v2/frame/create';
@@ -25,16 +25,17 @@ function App() {
 
         if (files && files.length > 0) {
           const formData = new FormData();
+          
+          formData.append('size', size);
           for (let i = 0; i < files.length; i++) {
             formData.append('images', files[i]);
           }
+
           const response = await fetch(END_POINT, {
             method: 'POST',
-            body: {
-              "images": formData,
-              "size": size
-            },
+            body: formData,
           });
+
           if (response.ok) {
             showSuccessAlert('🎉 파일 업로드 성공! 🥳');
             console.log('파일 업로드 성공!');
@@ -81,7 +82,6 @@ function App() {
       position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,
-      autoClose: false,
     });
   }
 
@@ -90,7 +90,6 @@ function App() {
       position: 'top-right',
       autoClose: 3000,
       hideProgressBar: false,
-      autoClose: false,
     });
   }
 
