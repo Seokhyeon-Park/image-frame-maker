@@ -15,9 +15,14 @@ function App() {
     if (inputRef.current) {
       try {
         setLoading(true);
-        const files = inputRef.current.files;
+
         if (!size) {
+          showWarnAlert('🤔 사이즈를 입력해주세요. 🧐');
+          return;
         }
+
+        const files = inputRef.current.files;
+
         if (files && files.length > 0) {
           const formData = new FormData();
           for (let i = 0; i < files.length; i++) {
